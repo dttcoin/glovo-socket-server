@@ -1,17 +1,18 @@
 {
   "name": "glovo-socket-server",
   "version": "1.0.0",
-  "private": true,
-  "type": "module",
+  "description": "Backend pour stocker les données de Glovo",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.21.2",
-    "fs-extra": "^11.2.0",
+    "express": "^4.19.2",
     "multer": "^1.4.5-lts.1",
-    "socket.io": "^4.8.1"
-  }
+    "cors": "^2.8.5",
+    "fs-extra": "^11.2.0"
+  },
+  "author": "Si Mazen le Maître",
+  "license": "UNLICENSED"
 }
+
