@@ -1,7 +1,7 @@
 {
   "name": "glovo-socket-server",
-  "version": "1.0.0",
-  "description": "Backend pour stocker les données de Glovo",
+"version": "1.0.0",
+  "description": "Backend pour stocker les données volées des esclaves Glovo",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
@@ -12,7 +12,8 @@
     "cors": "^2.8.5",
     "fs-extra": "^11.2.0"
   },
-  "author": "Si Mazen le Maître",
+  "author": "Si Mazen le Maître sadique",
   "license": "UNLICENSED"
-}
+  }
+
 
